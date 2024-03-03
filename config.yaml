@@ -1,0 +1,19 @@
+credentials:
+  usernames:
+    dmart:
+      email: damrt@gmail.com
+      username: dmart
+      name: John Smith
+      password: $2b$12$MUbhgQxzvQ.CvzXEu/MAf.EIuxwt85nu/Jqsyi1LeJCjOOGSSYCUS
+    dmart_2:
+      email: damrt_2@gmail.com
+      username: damrt_2
+      name: Rebecca Briggs
+      password: $2b$12$MUbhgQxzvQ.CvzXEu/MAf.EIuxwt85nu/Jqsyi1LeJCjOOGSSYCUS
+cookie:
+  expiry_days: 30
+  key: random_signature_key # Must be string
+  name: random_cookie_name
+preauthorized:
+  emails:
+  - melsby@gmail.com

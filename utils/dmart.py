@@ -6,18 +6,6 @@ from utils.settings import settings
 from enum import Enum
 from typing import Any, BinaryIO
 
-"""
-- Project's login 
-
-    Raises:
-        ConnectionError: _description_
-        ConnectionError: _description_
-        Exception: _description_
-
-    Returns:
-        _type_: _description_
-"""
-
 
 class RequestMethod(str, Enum):
     get = "get"
@@ -32,6 +20,7 @@ class DMart:
     def __init__(self, token: str | None = None) -> None:
         self.auth_token = token
 
+
     @property
     def json_headers(self) -> dict[str, str]:
         return {
@@ -45,7 +34,7 @@ class DMart:
             "Authorization": f"Bearer {self.auth_token}",
         }
             
-    async def login(self, username: str, password: str):
+    async def login(self, username: str, password: str) -> None:
         async with aiohttp.ClientSession() as session:
             json = {
                 "shortname": username,
@@ -59,11 +48,13 @@ class DMart:
             )
             resp_json = await response.json()
             if (
-                resp_json["status"] == "failed"
-                and resp_json["error"]["type"] == "jwtauth"
+                (resp_json["status"] == "failed"
+                and resp_json["error"]["type"] == "jwtauth")
+                or not resp_json.get("records")
             ):
-                raise ConnectionError()
+                return 
 
+            print(f"\n\n {resp_json = } \n\n")
             self.auth_token = resp_json["records"][0]["attributes"]["access_token"]
 
     
