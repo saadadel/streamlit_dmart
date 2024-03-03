@@ -29,8 +29,8 @@ class RequestMethod(str, Enum):
 
 class DMart:
     
-    def __init__(self) -> None:
-        self.auth_token: str | None = None
+    def __init__(self, token: str | None = None) -> None:
+        self.auth_token = token
 
     @property
     def json_headers(self) -> dict[str, str]:
@@ -75,6 +75,8 @@ class DMart:
         json: dict[str, Any] | None = None,
         data: aiohttp.FormData | None = None,
     ) -> dict[str, Any]:
+        if not self.auth_token:
+            raise Exception("Not authenticated Dmart user")
 
         resp_json: dict[str, Any] = {}
         response: aiohttp.ClientResponse | None = None
